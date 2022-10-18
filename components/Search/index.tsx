@@ -10,6 +10,7 @@ const Search: React.FC = () => {
     <form
       onSubmit={() => console.log()}
       name="search-form"
+      data-testid="search"
       className="relative mt-6 max-w-lg mx-auto"
     >
       <span className="absolute inset-y-0 left-0 pl-3 flex items-center">

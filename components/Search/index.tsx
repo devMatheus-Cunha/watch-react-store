@@ -1,16 +1,18 @@
 // Packages
 import React from "react";
 
+interface ISearch {
+  doSearch?: () => void
+}
 
-const Search: React.FC = () => {
+const Search: React.FC<ISearch> = ({ doSearch }) => {
   // -------------------------------------------------
   // Render
   // -------------------------------------------------
   return (
     <form
-      onSubmit={() => console.log()}
+      onSubmit={doSearch}
       name="search-form"
-      data-testid="search"
       className="relative mt-6 max-w-lg mx-auto"
     >
       <span className="absolute inset-y-0 left-0 pl-3 flex items-center">

@@ -1,17 +1,22 @@
 // Packages
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 
 interface ISearch {
-  doSearch?: () => void
+  doSearch: (term: string) => void
 }
 
 const Search: React.FC<ISearch> = ({ doSearch }) => {
+  // -------------------------------------------------
+  // State
+  // -------------------------------------------------
+  const [term, setTerm] = useState("")
+
   // -------------------------------------------------
   // Render
   // -------------------------------------------------
   return (
     <form
-      onSubmit={doSearch}
+      onSubmit={() => doSearch(term)}
       name="search-form"
       className="relative mt-6 max-w-lg mx-auto"
     >
@@ -31,6 +36,8 @@ const Search: React.FC<ISearch> = ({ doSearch }) => {
         className="w-full border rounded-md pl-10 pr-4 py-2 focus:border-blue-500 focus:outline-none focus:shadow-outline"
         type="search"
         placeholder="Search"
+        onChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => setTerm(value)}
+        value={term}
       />
     </form>
   );

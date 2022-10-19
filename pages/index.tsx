@@ -5,8 +5,6 @@ import type { NextPage } from "next";
 import { ProductCard, Search } from "../components";
 
 const Home: NextPage = () => {
-
-
   // -------------------------------------------------
   // Render
   // -------------------------------------------------

@@ -24,7 +24,6 @@ describe('ProductCard', () => {
 
   expect(screen.getByText(new RegExp(product.title, 'i'))).toBeInTheDocument()
   expect(screen.getByText(new RegExp(product.price, 'i'))).toBeInTheDocument()
-  expect(screen.getByText(new RegExp(product.id, 'i'))).toBeInTheDocument()
   expect(screen.getByTestId("image")).toHaveStyle({
    backgroundImage: product?.image
   })

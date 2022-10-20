@@ -18,4 +18,15 @@ describe('ProductCard', () => {
 
   expect(screen.getByTestId('product-card')).toBeInTheDocument()
  });
+
+ it('should display proper content', () => {
+  render(<ProductCard product={product} />)
+
+  expect(screen.getByText(new RegExp(product.title, 'i'))).toBeInTheDocument()
+  expect(screen.getByText(new RegExp(product.price, 'i'))).toBeInTheDocument()
+  expect(screen.getByText(new RegExp(product.id, 'i'))).toBeInTheDocument()
+  expect(screen.getByTestId("image")).toHaveStyle({
+   backgroundImage: product?.image
+  })
+ });
 })

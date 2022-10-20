@@ -34,4 +34,15 @@ describe('ProductCard', () => {
    backgroundImage: product?.image
   })
  });
+
+ it('should call props.addToCart() when button gets clicked', async () => {
+  renderProductCard()
+
+  const button = screen.getByRole('button')
+
+  await fireEvent.click(button)
+
+  expect(addToCart).toHaveBeenCalledTimes(1)
+  expect(addToCart).toHaveBeenCalledWith(product)
+ });
 })

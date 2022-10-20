@@ -10,9 +10,10 @@ type TProductItem = {
 
 type TProductCardProps = {
   product?: TProductItem;
+  addToCart: (product?: TProductItem) => void
 };
 
-const ProductCard: React.FC<TProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<TProductCardProps> = ({ product, addToCart }) => {
   // -------------------------------------------------
   // Render
   // -------------------------------------------------
@@ -27,7 +28,7 @@ const ProductCard: React.FC<TProductCardProps> = ({ product }) => {
           }}
         >
           <button
-            onClick={() => console.log(product)}
+            onClick={() => addToCart(product)}
             className="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
           >
             <svg

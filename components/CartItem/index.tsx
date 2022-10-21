@@ -18,7 +18,10 @@ const CartItem: React.FC<TCartItemProps> = ({ product }) => {
   // Render
   // -------------------------------------------------
   return (
-    <div className="flex justify-between mt-6">
+    <div
+      className="flex justify-between mt-6"
+      data-testid="cart-item"
+    >
       <div className="flex" >
         <img
           className="h-20 w-20 object-cover rounded"
@@ -46,7 +49,7 @@ const CartItem: React.FC<TCartItemProps> = ({ product }) => {
               </svg>
             </button>
             <span aria-label="total products" className="text-gray-700 mx-2">
-              10
+              1
             </span>
             <button
               aria-label="decrease cart button"
@@ -68,7 +71,7 @@ const CartItem: React.FC<TCartItemProps> = ({ product }) => {
           </div>
         </div>
       </div>
-      <span className="text-gray-600">{product?.price}</span>
+      <span className="text-gray-600">{product?.price}$</span>
     </div>
   );
 };

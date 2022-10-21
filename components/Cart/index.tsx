@@ -34,10 +34,10 @@ const Cart: React.FC = () => {
       </div>
       <hr className="my-3" />
       <CartItem product={{
-        id: "teste",
+        id: "1",
         image: "https://fpfportugalstorest01prd.blob.core.windows.net/blobfuse/images/KRBpzWaBs4kJ8A89LIdoDyLgGrwsH97cqrMT6qsVeRrfD5Wt3yDYfkaAQ6c7y46L.jpeg",
-        price: "teste",
-        title: "teste",
+        price: "12000",
+        title: "Relógio",
       }}
         key="teste" />
       <div className="mt-8">

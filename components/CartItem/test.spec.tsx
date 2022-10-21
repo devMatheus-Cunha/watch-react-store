@@ -65,5 +65,16 @@ describe('CartItem', () => {
   expect(quantity.textContent).toBe('1')
  });
 
- it.todo('should not go below zero uin the quantity');
+ it('should not go below zero uin the quantity', async () => {
+  renderCartItem()
+  const quantity = screen.getByTestId('quantity')
+
+  const [buttonDecrese] = screen.getAllByRole('button')
+  expect(quantity.textContent).toBe('1')
+
+  await fireEvent.click(buttonDecrese)
+  await fireEvent.click(buttonDecrese)
+
+  expect(quantity.textContent).toBe('0')
+ });
 })

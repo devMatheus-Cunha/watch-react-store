@@ -24,7 +24,8 @@
     "**/*.ts",
     "**/*.tsx",
     "setupTests.js",
-    "jest.config.js"
+    "jest.config.js",
+    "jest-unit.config.js"
   ],
   "exclude": [
     "node_modules"

@@ -10,7 +10,7 @@ const Home: NextPage = () => {
   // -------------------------------------------------
   return (
     <main data-testid="product-list" className="my-8">
-      <Search />
+      <Search doSearch={() => console.log()} />
       <div className="container mx-auto px-6">
         <h3 className="text-gray-700 text-2xl font-medium">Wrist Watch</h3>
         <span className="mt-3 text-sm text-gray-500">
@@ -24,6 +24,7 @@ const Home: NextPage = () => {
               image: "https://fpfportugalstorest01prd.blob.core.windows.net/blobfuse/images/KRBpzWaBs4kJ8A89LIdoDyLgGrwsH97cqrMT6qsVeRrfD5Wt3yDYfkaAQ6c7y46L.jpeg",
               id: "1"
             }}
+            addToCart={() => console.log()}
             key="teste"
           />
         </div>

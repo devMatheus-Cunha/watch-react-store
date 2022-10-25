@@ -1,7 +1,7 @@
 // Packages
 import React from "react";
 
-type TProductItem = {
+export type TProductItem = {
   title: string;
   price: string;
   image: string;

@@ -6,6 +6,7 @@ import {
 } from '@testing-library/react'
 import ProductList from '../pages/index'
 import { makeServer, TServer } from '../services/mirage/server'
+import userEvent from "@testing-library/user-event"
 import { Response } from "miragejs"
 
 const renderProductList = () => {
@@ -57,5 +58,30 @@ describe('ProductList', () => {
    expect(screen.queryByTestId('no-products')).toBeNull()
    expect(screen.queryAllByTestId('product-card')).toHaveLength(0)
   })
+ });
+
+ fit('should filter the product list when a search is perfomed', async () => {
+  const searchTerm = 'Relógio bonito'
+  server.createList('product', 2)
+
+  server.create('product', {
+   title: searchTerm,
+  } as object)
+
+  renderProductList()
+
+  await waitFor(() => {
+   expect(screen.getAllByTestId("product-card")).toHaveLength(3);
+  });
+
+  const form = screen.getByRole('form')
+  const input = screen.getByRole('searchbox')
+
+  await userEvent.type(input, searchTerm)
+  await fireEvent.submit(form)
+
+  await waitFor(() => {
+   expect(screen.getAllByTestId("product-card")).toHaveLength(1);
+  });
  });
 })

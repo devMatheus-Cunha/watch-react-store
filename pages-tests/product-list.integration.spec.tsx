@@ -30,13 +30,17 @@ describe('ProductList', () => {
 
  it('should render the ProductCard component 10 times', async () => {
   server.createList('product', 10)
-
-
   renderProductList()
-
   await waitFor(() => {
    expect(screen.getAllByTestId('product-card')).toHaveLength(10)
   })
+ });
 
+ it('should render the "no products message"', async () => {
+  renderProductList()
+
+  await waitFor(() => {
+   expect(screen.getByTestId('no-products')).toBeInTheDocument()
+  })
  });
 })

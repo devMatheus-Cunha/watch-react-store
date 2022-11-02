@@ -19,6 +19,14 @@ const Search: React.FC<ISearch> = ({ doSearch }) => {
     doSearch(term);
   };
 
+  const handleInput = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+    setTerm(value)
+
+    if (!value) {
+      doSearch('')
+    }
+  }
+
   // -------------------------------------------------
   // Render
   // -------------------------------------------------
@@ -44,7 +52,7 @@ const Search: React.FC<ISearch> = ({ doSearch }) => {
         className="w-full border rounded-md pl-10 pr-4 py-2 focus:border-blue-500 focus:outline-none focus:shadow-outline"
         type="search"
         placeholder="Search"
-        onChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => setTerm(value)}
+        onInput={handleInput}
         value={term}
       />
     </form>

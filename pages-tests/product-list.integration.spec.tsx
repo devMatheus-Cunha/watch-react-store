@@ -94,4 +94,14 @@ describe('ProductList', () => {
    expect(screen.getByText(/10 Products/i)).toBeInTheDocument();
   });
  });
+
+ it('should display product (singular) when there is only 1 product', async () => {
+  server.create('product')
+
+  renderProductList()
+
+  await waitFor(() => {
+   expect(screen.getByText(/1 Product$/i)).toBeInTheDocument();
+  });
+ });
 })

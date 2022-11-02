@@ -46,7 +46,7 @@ describe('Search', () => {
   expect(doSearch).toHaveBeenCalledWith(textSubmitted)
  });
 
- fit('should call doSeatch when search input is cleared', async () => {
+ it('should call doSeatch when search input is cleared', async () => {
   render(<Search doSearch={doSearch} />)
 
   const inputText = 'some text here'

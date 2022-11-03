@@ -2,7 +2,11 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 
+// Components
 import { Cart } from "../components";
+
+// Hooks
+import { useCartStore } from "../store/cart";
 
 /* istanbul ignore next */
 if (process.env.NODE_ENV === "development") {
@@ -10,6 +14,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { toggle } = useCartStore((store) => store.actions)
 
   return (
     <div className="bg-white">
@@ -43,7 +48,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             </div>
             <div className="flex items-center justify-end w-full">
               <button
-                onClick={() => console.log()}
+                onClick={toggle}
                 className="text-gray-600 focus:outline-none mx-4 sm:mx-0"
               >
                 <svg

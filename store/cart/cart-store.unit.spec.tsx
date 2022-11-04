@@ -26,6 +26,19 @@ describe('Cart Store', () => {
     expect(result.current.state.products).toHaveLength(0)
   });
 
+  it('should increase products when addProduct functions is called', async () => {
+    const products = server.createList('product', 2)
+
+    const { result } = renderHook(() => useCartStore())
+    const { actions: { add } } = result.current
+
+    for (const product of products) {
+      act(() => add(product))
+    }
+
+    expect(result.current.state.products).toHaveLength(2)
+  });
+
   it('should toggle open state', async () => {
     const { result } = renderHook(() => useCartStore())
     const { actions: { toggle } } = result.current

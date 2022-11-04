@@ -8,7 +8,7 @@ import { CartItem } from "..";
 import { useCartStore } from "../../store/cart"
 
 const Cart: React.FC = () => {
-  const { open } = useCartStore((store) => store.state)
+  const { open, products } = useCartStore((store) => store.state)
   const { toggle } = useCartStore((store) => store.actions)
 
   // -------------------------------------------------
@@ -38,13 +38,8 @@ const Cart: React.FC = () => {
         </button>
       </div>
       <hr className="my-3" />
-      <CartItem product={{
-        id: "1",
-        image: "https://fpfportugalstorest01prd.blob.core.windows.net/blobfuse/images/KRBpzWaBs4kJ8A89LIdoDyLgGrwsH97cqrMT6qsVeRrfD5Wt3yDYfkaAQ6c7y46L.jpeg",
-        price: "12000",
-        title: "Relógio",
-      }}
-        key="teste" />
+      {products.map((product) => <CartItem product={product} key={product.id} />)}
+
       <div className="mt-8">
         <form className="flex items-center justify-center">
           <input

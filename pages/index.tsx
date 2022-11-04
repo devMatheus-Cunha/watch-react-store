@@ -8,6 +8,7 @@ import { ProductCard, Search } from "../components";
 
 // Hooks
 import { ProductsType, useFetchProducts } from "../hooks/useFetchProducts";
+import { useCartStore } from "../store/cart";
 
 // Types
 import { TProductItem } from "../components/ProductCard";
@@ -17,6 +18,7 @@ const Home: NextPage = () => {
   // States
   // -------------------------------------------------
   const { products, error } = useFetchProducts();
+  const addToCart = useCartStore((store) => store.actions.add)
 
   const [term, setTerm] = useState("");
   const [localProducts, setLocalProducts] = useState<ProductsType>([]);
@@ -47,7 +49,7 @@ const Home: NextPage = () => {
     return localProducts.map((product: TProductItem) => (
       <ProductCard
         product={product}
-        addToCart={() => console.log()}
+        addToCart={addToCart}
         key={product.id}
       />
     ))

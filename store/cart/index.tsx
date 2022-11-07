@@ -17,6 +17,13 @@ const initialState = {
   products: [],
 }
 
+const addProduct = (store: any, product: any) => {
+  if (store.state.products.includes(product)) {
+    return store.state.products
+  }
+  return [...store.state.products, product]
+}
+
 export const useCartStore = create<IUseCartStore>((set) => ({
   state: initialState,
   actions: {
@@ -29,11 +36,13 @@ export const useCartStore = create<IUseCartStore>((set) => ({
         state: { ...initialState },
       })),
     add: (product) =>
-      set((store) => ({
-        state: {
-          open: true,
-          products: [...store.state.products, product]
+      set((store) => {
+        return {
+          state: {
+            open: true,
+            products: addProduct(store, product)
+          }
         }
-      })),
+      }),
   },
 }))

@@ -2,6 +2,7 @@ import { renderHook, act } from "@testing-library/react-hooks"
 import { render, screen } from "@testing-library/react";
 import { useCartStore } from "../../store/cart"
 import { makeServer, TServer } from '../../services/mirage/server'
+import userEvent from "@testing-library/user-event"
 import Cart from ".";
 
 describe('Cart', () => {
@@ -40,6 +41,20 @@ describe('Cart', () => {
   render(<Cart />)
 
   expect(screen.getByTestId('cart')).not.toHaveClass('hidden')
+ });
+
+ it('should display 2 products cards', () => {
+  const products = server.createList('product', 2)
+
+  act(() => {
+   for (const product of products) {
+    add(product)
+   }
+  })
+
+  render(<Cart />)
+
+  expect(screen.getAllByTestId('cart-item')).toHaveLength(2)
  });
 
 });

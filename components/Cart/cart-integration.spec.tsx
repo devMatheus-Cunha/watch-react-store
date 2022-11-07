@@ -26,10 +26,10 @@ describe('Cart', () => {
   jest.clearAllMocks()
  })
 
- it('should render component', () => {
+ it('should add css class "hidden: in the component', () => {
   render(<Cart />)
 
-  expect(screen.getByTestId('cart')).toBeInTheDocument()
+  expect(screen.getByTestId('cart')).toHaveClass('hidden')
  });
 
 });

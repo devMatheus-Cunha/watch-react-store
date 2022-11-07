@@ -32,4 +32,14 @@ describe('Cart', () => {
   expect(screen.getByTestId('cart')).toHaveClass('hidden')
  });
 
+ it('should not have css class "hidden: in the component', () => {
+  act(() => {
+   toggle()
+  })
+
+  render(<Cart />)
+
+  expect(screen.getByTestId('cart')).not.toHaveClass('hidden')
+ });
+
 });

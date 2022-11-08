@@ -1,3 +1,4 @@
+import produce from 'immer'
 import create from 'zustand'
 
 interface IUseCartStore {
@@ -12,37 +13,36 @@ interface IUseCartStore {
   }
 }
 
+type TypeState = Pick<IUseCartStore, "state">
+
 const initialState = {
   open: false,
   products: [],
 }
 
-const addProduct = (store: any, product: any) => {
-  if (store.state.products.includes(product)) {
-    return store.state.products
-  }
-  return [...store.state.products, product]
-}
+export const useCartStore = create<IUseCartStore>((set) => {
+  const setState = (fn: any) => set(produce(fn) as any)
 
-export const useCartStore = create<IUseCartStore>((set) => ({
-  state: initialState,
-  actions: {
-    toggle: () =>
-      set((store) => ({
-        state: { ...store.state, open: !store.state.open },
-      })),
-    reset: () =>
-      set(() => ({
-        state: { ...initialState },
-      })),
-    add: (product) =>
-      set((store) => {
-        return {
-          state: {
-            open: true,
-            products: addProduct(store, product)
+  return {
+    state: initialState,
+    actions: {
+      toggle() {
+        setState(({ state }: TypeState) => {
+          state.open = !state.open
+        })
+      },
+      reset() {
+        setState((store: TypeState) => {
+          store.state = initialState
+        })
+      },
+      add(product) {
+        setState(({ state }: TypeState) => {
+          if (!state.products.includes(product)) {
+            state.products.push(product)
           }
-        }
-      }),
-  },
-}))
+        })
+      },
+    },
+  }
+})

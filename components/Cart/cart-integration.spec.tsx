@@ -2,8 +2,11 @@ import { renderHook, act } from "@testing-library/react-hooks"
 import { render, screen } from "@testing-library/react";
 import { useCartStore } from "../../store/cart"
 import { makeServer, TServer } from '../../services/mirage/server'
+import { setAutoFreeze } from "immer"
 import userEvent from "@testing-library/user-event"
 import Cart from ".";
+
+setAutoFreeze(false)
 
 describe('Cart', () => {
  let server: TServer

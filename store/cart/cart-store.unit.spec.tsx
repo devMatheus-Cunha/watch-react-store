@@ -39,7 +39,7 @@ describe('Cart Store', () => {
     expect(result.current.state.products).toHaveLength(2)
   });
 
-  fit('should not add same product twice', async () => {
+  it('should not add same product twice', async () => {
     const product = server.create('product')
 
     act(() => add(product))

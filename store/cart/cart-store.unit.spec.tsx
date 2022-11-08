@@ -6,12 +6,14 @@ describe('Cart Store', () => {
   let server: TServer
   let result: any
   let add: any
+  let remove: any
   let toggle: () => void;
 
   beforeEach(() => {
     server = makeServer({ environment: 'test' })
     result = renderHook(() => useCartStore()).result
     add = result.current.actions.add;
+    remove = result.current.actions.remove;
     toggle = result.current.actions.toggle
   })
 
@@ -58,6 +60,23 @@ describe('Cart Store', () => {
     act(() => toggle())
     expect(result.current.state.open).toBe(false)
     expect(result.current.state.products).toHaveLength(0)
+  });
 
+  it('should remove a product from the store', async () => {
+    const [productOne, productTwo] = server.createList('product', 2)
+
+    act(() => {
+      add(productOne)
+      add(productTwo)
+    })
+
+    expect(result.current.state.products).toHaveLength(2)
+
+    act(() => {
+      remove(productOne)
+    })
+
+    expect(result.current.state.products).toHaveLength(1)
+    expect(result.current.state.products[0]).toEqual(productOne)
   });
 });

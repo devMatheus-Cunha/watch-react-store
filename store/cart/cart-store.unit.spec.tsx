@@ -7,6 +7,7 @@ describe('Cart Store', () => {
   let result: any
   let add: any
   let remove: any
+  let removeAll: any
   let toggle: () => void;
 
   beforeEach(() => {
@@ -14,6 +15,7 @@ describe('Cart Store', () => {
     result = renderHook(() => useCartStore()).result
     add = result.current.actions.add;
     remove = result.current.actions.remove;
+    removeAll = result.current.actions.removeAll;
     toggle = result.current.actions.toggle
   })
 
@@ -73,10 +75,28 @@ describe('Cart Store', () => {
     expect(result.current.state.products).toHaveLength(2)
 
     act(() => {
-      remove(productOne)
+      remove(productTwo)
     })
 
     expect(result.current.state.products).toHaveLength(1)
     expect(result.current.state.products[0]).toEqual(productOne)
+  });
+
+  it('should remove all a product from the store', async () => {
+    const products = server.createList('product', 2)
+
+    act(() => {
+      for (const product of products) {
+        add(product)
+      }
+    })
+
+    expect(result.current.state.products).toHaveLength(2)
+
+    act(() => {
+      removeAll()
+    })
+
+    expect(result.current.state.products).toHaveLength(0)
   });
 });

@@ -43,6 +43,18 @@ describe('Cart Store', () => {
     expect(result.current.state.products).toHaveLength(2)
   });
 
+  fit('should add 2 products to the list and open the cart', async () => {
+    const products = server.createList('product', 2)
+
+    for (const product of products) {
+      act(() => {
+        add(product)
+      })
+    }
+    expect(result.current.state.open).toBe(true)
+    expect(result.current.state.products).toHaveLength(2)
+  });
+
   it('should not add same product twice', async () => {
     const product = server.create('product')
 

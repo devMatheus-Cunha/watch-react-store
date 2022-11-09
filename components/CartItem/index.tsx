@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 // Packages
 import React, { useState } from "react";
+import { useCartStore } from "../../store/cart";
 
 type TProductItem = {
   id: string;
@@ -15,6 +16,8 @@ type TCartItemProps = {
 
 const CartItem: React.FC<TCartItemProps> = ({ product }) => {
   const [quantity, setQuantity] = useState(1)
+  const { open, products } = useCartStore((store) => store.state)
+  const { remove } = useCartStore((store) => store.actions)
   // ------------------------------------------------
   // Funcitons
   // -------------------------------------------------
@@ -43,6 +46,9 @@ const CartItem: React.FC<TCartItemProps> = ({ product }) => {
         />
         <div className="mx-3">
           <h3 className="text-sm text-gray-600">{product?.title}</h3>
+          <button onClick={() => {
+            remove(product)
+          }}>remove</button>
           <div className="flex items-center mt-2">
             <button
               aria-label="decrease cart button"

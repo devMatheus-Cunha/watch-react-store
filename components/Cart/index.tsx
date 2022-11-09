@@ -9,7 +9,7 @@ import { useCartStore } from "../../store/cart"
 
 const Cart: React.FC = () => {
   const { open, products } = useCartStore((store) => store.state)
-  const toggle = useCartStore((store) => store.actions.toggle)
+  const { toggle, removeAll } = useCartStore((store) => store.actions)
 
   const hasProducts = products.length > 0
 
@@ -23,6 +23,9 @@ const Cart: React.FC = () => {
     >
       <div className="flex items-center justify-between">
         <h3 className="text-2xl font-medium text-gray-700">Your cart</h3>
+        <button onClick={() => {
+          removeAll()
+        }}>Clear cart</button>
         <button
           onClick={() => toggle()}
           className="text-gray-600 focus:outline-none"

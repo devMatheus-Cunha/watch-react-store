@@ -65,6 +65,7 @@ export const useCartStore = create<IUseCartStore>((set) => {
         setState(({ state }: TState) => {
           if (!state.products.includes(product)) {
             state.products.push(product)
+            state.open = true
           }
         })
       },

@@ -94,6 +94,23 @@ describe('Cart Store', () => {
     expect(result.current.state.products[0]).toEqual(productOne)
   });
 
+  it('should not change products in the cart if provided product is not in the array', async () => {
+    const [productOne, productTwo, productThree] = server.createList('product', 3)
+
+    act(() => {
+      add(productOne)
+      add(productTwo)
+    })
+
+    expect(result.current.state.products).toHaveLength(2)
+
+    act(() => {
+      remove(productThree)
+    })
+
+    expect(result.current.state.products).toHaveLength(2)
+  });
+
   it('should remove all a product from the store', async () => {
     const products = server.createList('product', 2)
 
@@ -111,4 +128,5 @@ describe('Cart Store', () => {
 
     expect(result.current.state.products).toHaveLength(0)
   });
+
 });

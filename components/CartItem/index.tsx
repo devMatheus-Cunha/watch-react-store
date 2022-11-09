@@ -16,7 +16,6 @@ type TCartItemProps = {
 
 const CartItem: React.FC<TCartItemProps> = ({ product }) => {
   const [quantity, setQuantity] = useState(1)
-  const { open, products } = useCartStore((store) => store.state)
   const { remove } = useCartStore((store) => store.actions)
   // ------------------------------------------------
   // Funcitons
@@ -53,6 +52,7 @@ const CartItem: React.FC<TCartItemProps> = ({ product }) => {
             <button
               aria-label="decrease cart button"
               onClick={onDecrease}
+              data-testid="decrease"
               className="text-gray-500 focus:outline-none focus:text-gray-600"
             >
               <svg
@@ -77,6 +77,7 @@ const CartItem: React.FC<TCartItemProps> = ({ product }) => {
             <button
               aria-label="increase cart button"
               onClick={onIncrease}
+              data-testid="increase"
               className="text-gray-500 focus:outline-none focus:text-gray-600"
             >
               <svg

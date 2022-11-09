@@ -43,7 +43,7 @@ describe('Cart Store', () => {
     expect(result.current.state.products).toHaveLength(2)
   });
 
-  fit('should add 2 products to the list and open the cart', async () => {
+  it('should add 2 products to the list and open the cart', async () => {
     const products = server.createList('product', 2)
 
     for (const product of products) {

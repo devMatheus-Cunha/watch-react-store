@@ -63,7 +63,9 @@ export const useCartStore = create<IUseCartStore>((set) => {
       },
       add(product: TProduct) {
         setState(({ state }: TState) => {
-          if (!state.products.includes(product)) {
+          const doesntExist = !state.products?.find((({ id }) => id === product.id))
+
+          if (doesntExist) {
             state.products.push(product)
             state.open = true
           }

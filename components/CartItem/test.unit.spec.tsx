@@ -3,7 +3,13 @@ import {
  screen,
  fireEvent,
 } from '@testing-library/react'
+import { renderHook } from '@testing-library/react-hooks'
+import { setAutoFreeze } from "immer"
+import userEvent from '@testing-library/user-event'
+import { useCartStore } from '../../store/cart'
 import CartItem from './'
+
+setAutoFreeze(false)
 
 const product = {
  title: 'Relógio bonitor',
@@ -77,5 +83,20 @@ describe('CartItem', () => {
   await fireEvent.click(buttonDecrese)
 
   expect(quantity.textContent).toBe('0')
+ });
+
+ it('should call remove() when remove button is clicked', async () => {
+  const { result } = renderHook(() => useCartStore())
+
+  const spy = jest.spyOn(result.current.actions, 'remove')
+
+  renderCartItem()
+
+  const button = screen.getByRole('button', { name: /remove/i })
+
+  await userEvent.click(button)
+
+  expect(spy).toHaveBeenCalledTimes(1)
+  expect(spy).toHaveBeenCalledWith(product)
  });
 })

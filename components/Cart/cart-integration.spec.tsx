@@ -45,12 +45,22 @@ describe('Cart', () => {
 
    const button = screen.getByTestId('close-button')
 
-   hooksAct(() => {
-
-   })
    await userEvent.click(button)
 
    expect(screen.getByTestId('cart')).not.toHaveClass('hidden')
+  })
+ });
+
+ it('should call store toggle() twice', async () => {
+  await componentsAct(async () => {
+   render(<Cart />)
+
+   const button = screen.getByTestId('close-button')
+
+   await userEvent.click(button)
+   await userEvent.click(button)
+
+   expect(spy).toHaveBeenCalledTimes(2)
   })
  });
 

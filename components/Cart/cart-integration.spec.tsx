@@ -1,12 +1,15 @@
-import { renderHook, act } from "@testing-library/react-hooks"
+import { renderHook, act as hooksAct } from "@testing-library/react-hooks"
 import { render, screen } from "@testing-library/react";
 import { useCartStore } from "../../store/cart"
 import { makeServer, TServer } from '../../services/mirage/server'
 import { setAutoFreeze } from "immer"
 import userEvent from "@testing-library/user-event"
 import Cart from ".";
+import TestRenderer from 'react-test-renderer'
 
 setAutoFreeze(false)
+
+const { act: componentsAct } = TestRenderer
 
 describe('Cart', () => {
  let server: TServer
@@ -36,20 +39,25 @@ describe('Cart', () => {
   expect(screen.getByTestId('cart')).toHaveClass('hidden')
  });
 
- it('should not have css class "hidden: in the component', () => {
-  act(() => {
-   toggle()
+ it('should not have css class "hidden: in the component', async () => {
+  await componentsAct(async () => {
+   render(<Cart />)
+
+   const button = screen.getByTestId('close-button')
+
+   hooksAct(() => {
+
+   })
+   await userEvent.click(button)
+
+   expect(screen.getByTestId('cart')).not.toHaveClass('hidden')
   })
-
-  render(<Cart />)
-
-  expect(screen.getByTestId('cart')).not.toHaveClass('hidden')
  });
 
  it('should display 2 products cards', () => {
   const products = server.createList('product', 2)
 
-  act(() => {
+  hooksAct(() => {
    for (const product of products) {
     add(product)
    }

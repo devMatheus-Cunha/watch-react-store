@@ -93,6 +93,19 @@ describe('Cart Store', () => {
 
   });
 
+  it('should NOT decrease below zero', () => {
+    const product = server.create('product')
+
+    act(() => {
+      add(product)
+      decrease(product)
+      decrease(product)
+    })
+
+    expect(result.current.state.products[0].quantity).toBe(0)
+
+  });
+
   it('should not add same product twice', async () => {
     const product = server.create('product')
 

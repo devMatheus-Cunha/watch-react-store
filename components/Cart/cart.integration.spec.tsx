@@ -78,4 +78,26 @@ describe('Cart', () => {
   expect(screen.getAllByTestId('cart-item')).toHaveLength(2)
  });
 
+ fit('should remove all products when clear cart button is clicked', async () => {
+  const products = server.createList('product', 2)
+
+  hooksAct(() => {
+   for (const product of products) {
+    add(product)
+   }
+  })
+
+  componentsAct(async () => {
+   render(<Cart />)
+
+   expect(screen.getAllByTestId('cart-item')).toHaveLength(2)
+
+   const button = screen.getByRole('button', { name: /clear cart/i })
+
+   await userEvent.click(button)
+
+   expect(screen.queryAllByTestId('cart-item')).toHaveLength(0)
+  })
+ });
+
 });

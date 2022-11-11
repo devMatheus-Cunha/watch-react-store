@@ -81,6 +81,18 @@ describe('Cart Store', () => {
 
   });
 
+  it('should increase quantity', () => {
+    const product = server.create('product')
+
+    act(() => {
+      add(product)
+      increase(product)
+    })
+
+    expect(result.current.state.products[0].quantity).toBe(2)
+
+  });
+
   it('should not add same product twice', async () => {
     const product = server.create('product')
 

@@ -19,13 +19,18 @@ const product = {
  quantity: 1
 }
 
-const addToCart = jest.fn()
-
 const renderCartItem = () => {
  render(<CartItem product={product} />)
 }
 
 describe('CartItem', () => {
+ let result: any
+
+ beforeEach(() => {
+  result = renderHook(() => useCartStore()).result
+ })
+
+
  it('should render component', () => {
   renderCartItem()
 
@@ -44,13 +49,24 @@ describe('CartItem', () => {
  });
 
  it('should call remove() when remove button is clicked', async () => {
-  const { result } = renderHook(() => useCartStore())
-
   const spy = jest.spyOn(result.current.actions, 'remove')
 
   renderCartItem()
 
   const button = screen.getByRole('button', { name: /remove/i })
+
+  await userEvent.click(button)
+
+  expect(spy).toHaveBeenCalledTimes(1)
+  expect(spy).toHaveBeenCalledWith(product)
+ });
+
+ it('should call increase() when button is clicked', async () => {
+  const spy = jest.spyOn(result.current.actions, 'increase')
+
+  renderCartItem()
+
+  const button = screen.getByTestId('increase')
 
   await userEvent.click(button)
 

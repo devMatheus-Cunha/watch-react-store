@@ -87,7 +87,7 @@ describe('Cart', () => {
    }
   })
 
-  componentsAct(async () => {
+  await componentsAct(async () => {
    render(<Cart />)
 
    expect(screen.getAllByTestId('cart-item')).toHaveLength(2)

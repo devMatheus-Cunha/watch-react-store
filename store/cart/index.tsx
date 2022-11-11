@@ -6,6 +6,7 @@ export type TProduct = {
   image: string;
   price: string;
   title: string;
+  quantity: number
 };
 
 interface IUseCartStore {
@@ -19,6 +20,8 @@ interface IUseCartStore {
     reset: () => void
     removeAll: () => void
     remove: (data: TProduct) => void
+    increase: (data: TProduct) => void
+    decrease: (data: TProduct) => void
   }
 }
 
@@ -66,8 +69,27 @@ export const useCartStore = create<IUseCartStore>((set) => {
           const doesntExist = !state.products?.find((({ id }) => id === product.id))
 
           if (doesntExist) {
+            if (!product.quantity) {
+              product.quantity = 1
+            }
             state.products.push(product)
             state.open = true
+          }
+        })
+      },
+      increase(product: TProduct) {
+        setState(({ state }: TState) => {
+          const localProduct = state.products.find(({ id }) => id === product.id)
+          if (localProduct) {
+            localProduct.quantity++
+          }
+        })
+      },
+      decrease(product: TProduct) {
+        setState(({ state }: TState) => {
+          const localProduct = state.products.find(({ id }) => id === product.id)
+          if (localProduct && localProduct.quantity > 0) {
+            localProduct.quantity--
           }
         })
       },

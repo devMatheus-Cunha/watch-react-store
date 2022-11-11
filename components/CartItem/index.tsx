@@ -8,6 +8,8 @@ type TProductItem = {
   image: string;
   price: string;
   title: string;
+  quantity: number
+
 };
 
 type TCartItemProps = {
@@ -15,20 +17,7 @@ type TCartItemProps = {
 };
 
 const CartItem: React.FC<TCartItemProps> = ({ product }) => {
-  const [quantity, setQuantity] = useState(1)
-  const { remove } = useCartStore((store) => store.actions)
-  // ------------------------------------------------
-  // Funcitons
-  // -------------------------------------------------
-
-  const onDecrease = () => {
-    setQuantity((value) => value > 0 ? value - 1 : 0)
-  }
-
-  const onIncrease = () => {
-    setQuantity((value) => value + 1)
-  }
-
+  const { remove, decrease, increase } = useCartStore((store) => store.actions)
   // ------------------------------------------------
   // Render
   // -------------------------------------------------
@@ -51,7 +40,7 @@ const CartItem: React.FC<TCartItemProps> = ({ product }) => {
           <div className="flex items-center mt-2">
             <button
               aria-label="decrease cart button"
-              onClick={onDecrease}
+              onClick={() => decrease(product)}
               data-testid="decrease"
               className="text-gray-500 focus:outline-none focus:text-gray-600"
             >
@@ -72,11 +61,11 @@ const CartItem: React.FC<TCartItemProps> = ({ product }) => {
               className="text-gray-700 mx-2"
               data-testid="quantity"
             >
-              {quantity}
+              {product.quantity}
             </span>
             <button
               aria-label="increase cart button"
-              onClick={onIncrease}
+              onClick={() => increase(product)}
               data-testid="increase"
               className="text-gray-500 focus:outline-none focus:text-gray-600"
             >

@@ -12,4 +12,20 @@ jobs:
 
     steps: 
       - name: Chekckout repository
-        run: echo 'Hello Wordl!' 
+        uses: actions/checkout@v2
+        with:
+          fecth-depth: 0
+          
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.18.x
+      
+      - name: Install dependecies
+        run: yarn --frozen-lockfile --preferoffline
+        
+      - name: Run Jest tests
+        run: yarn test
+        
+      
+        

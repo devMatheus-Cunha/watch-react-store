@@ -22,7 +22,7 @@ jobs:
           node-version: 12.18.x
       
       - name: Install dependecies
-        run: yarn --frozen-lockfile --preferoffline
+        run: yarn --frozen-lockfile --prefer-offline
         
       - name: Run Jest tests
         run: yarn test

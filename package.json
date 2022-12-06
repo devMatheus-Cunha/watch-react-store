@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "generate": "next generate",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:unit": "jest --config=jest-unit.config.js",

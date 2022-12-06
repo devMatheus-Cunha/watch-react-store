@@ -31,9 +31,3 @@ jobs:
       
       - name: Run Linter
         run: yarn lint
-
-      - name: Build app
-        run: yarn generate
-        
-      
-        

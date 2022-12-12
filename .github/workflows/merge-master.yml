@@ -32,5 +32,12 @@ jobs:
       - name: Run Linter
         run: yarn lint
         
-      
-        
+
+      - name: send message using socks5 proxy URL
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ${{ github.event_name }} event triggered final step.
+            echo This event is a pull request that had an assignee removed

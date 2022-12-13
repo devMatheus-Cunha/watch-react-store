@@ -30,7 +30,7 @@ jobs:
         run: yarn test
 
       - name: Falhar de proposito
-        run: yarn test
+        run: exit 1
       
       - name: Run Linter
         run: yarn lint

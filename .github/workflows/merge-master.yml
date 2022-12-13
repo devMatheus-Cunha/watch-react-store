@@ -28,16 +28,26 @@ jobs:
         
       - name: Run Jest tests
         run: yarn test
+        run: exit 1
       
       - name: Run Linter
         run: yarn lint
         
 
-      - name: send message using socks5 proxy URL
+      - name: Notify in telegran - success
         uses: appleboy/telegram-action@master
+        if: ${{ success()}}
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${{ github.event_name }} event triggered final step.
-            echo This event is a pull request that had an assignee removed
+            After ${{ github.event_name }} the deploy was done at Netlify!
+
+      - name: Notify in telegran - error
+        uses: appleboy/telegram-action@master
+        if: ${{ failure()}}
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            After ${{ github.event_name }} the deploy at Netlify failed!

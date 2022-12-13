@@ -37,9 +37,6 @@ jobs:
         
       - name: Run Jest tests
         run: yarn test
-
-      - name: Falhar de proposito
-        run: yarn test
       
       - name: Run Linter
         run: yarn lint
